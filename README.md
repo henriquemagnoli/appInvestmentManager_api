@@ -1,2 +1,2 @@
-# appInvestmentManager_api
+# API Investment Manager
 Api do aplicativo do Investment Manager
