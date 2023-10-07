@@ -10,5 +10,6 @@ Passo a passo instalação de dependencias
 * npm install body-parser --save
 * npm install sequelize –save
 * npm install mysql2 --save
+* npm install dotenv
 
 No arquivo 'package.json' adicionar dentro do 'scripts', "start": "nodemon app.js"
