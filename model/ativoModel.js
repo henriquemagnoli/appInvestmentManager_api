@@ -24,7 +24,7 @@ const ativo = connection.define('ativo', {
     },
     outroscustos:{
         type: sequelize.DOUBLE,
-        allowNull: false
+        allowNull: true
     }
 })
 

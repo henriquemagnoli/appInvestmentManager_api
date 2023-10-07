@@ -1,23 +1,25 @@
 // Arquivo de rotas(Endpoints) da API
 const express = require('express');
 const routes = express.Router();
-const controller = require('./controller/usuarioController');
+
+// Controllers
+const controllerUsuario = require('./controller/usuarioController');
+const controllerAtivo = require('./controller/ativoController');
 
 // Endpoints
-
 // Login
 routes.get('/login', (req,res) => {res.send("Efetuando Login")}) // Valida o login
 
-// Usuario
-routes.get('/usuarios', (req, res) => {controller.listarUsuario(req,res)})        // Lista Usuarios
-routes.post('/usuarios', (req, res) => {controller.criarUsuario(req,res)})        // Cria Usuarios 
-routes.delete('/usuarios/:id', (req,res) => {controller.excluirUsuario(req,res)}) // Deleta Usuarios
-routes.put('/usuarios/:id', (req,res) => { controller.alterarUsuario(req, res)})  // Altera Usuarios
+// Usuarios
+routes.get('/usuarios', (req, res) => {controllerUsuario.listarUsuario(req,res)})        // Lista Usuarios
+routes.post('/usuarios', (req, res) => {controllerUsuario.criarUsuario(req,res)})        // Cria Usuarios 
+routes.delete('/usuarios/:id', (req,res) => {controllerUsuario.excluirUsuario(req,res)}) // Deleta Usuarios
+routes.put('/usuarios/:id', (req,res) => { controllerUsuario.alterarUsuario(req, res)})  // Altera Usuarios
 
 // Ações
-routes.get('/ativos', (req,res) => {res.send("Retornando ativos")})   // Lista Ativos
-routes.post('/ativos', (req, res) => {res.send("Criando ativos")})    // Cria Ativos
-routes.delete('/ativos', (req,res) => {res.send("Deletando ativos")}) // Deleta Ativos
-routes.put('/ativos', (req,res) => {res.send("Atualizando ativos")})  // Altera Ativos
+routes.get('/ativos', (req,res) => {controllerAtivo.listarAtivos(req,res)})   // Lista Ativos
+routes.post('/ativos', (req, res) => {controllerAtivo.criarAtivo(req,res)})    // Cria Ativos
+routes.delete('/ativos/:id', (req,res) => {controllerAtivo.excluirAtivo(req,res)}) // Deleta Ativos
+routes.put('/ativos/:id', (req,res) => {controllerAtivo.alterarAtivo(req,res)})  // Altera Ativos
 
 module.exports = routes;
