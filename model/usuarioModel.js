@@ -12,10 +12,12 @@ const usuario = connection.define('usuario', {
     },
     email:{
         type: sequelize.STRING,
+        unique: true,
         allowNull: false
     },
     cpf:{
         type: sequelize.STRING,
+        unique: true,
         allowNull: false
     },
     senha:{

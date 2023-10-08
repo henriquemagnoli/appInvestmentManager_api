@@ -1,9 +1,12 @@
 const usuarioModel = require('../model/usuarioModel');
 
 const listarUsuario = (req, res) => {
-    
+
     usuarioModel.findAll({raw: true, order:[['id','DESC']]}).then((usuarios) => {
-        res.json(usuarios)
+        if(usuarios === null)
+            res.json("Não existe usuarios")
+        else
+            res.json(usuarios)
     })
 }
 
