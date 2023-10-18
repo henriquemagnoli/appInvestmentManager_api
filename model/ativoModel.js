@@ -2,6 +2,11 @@ const sequelize = require('sequelize');
 const connection = require('../connection/database');
 
 const ativo = connection.define('ativo', {
+    /*usuarioID:{
+        type: sequelize.INTEGER,
+        references: 'usuario',
+        referencesKy: 'id'
+    },*/
     tipoativo:{
         type: sequelize.STRING,
         allowNull: false
