@@ -1,12 +1,8 @@
 const sequelize = require('sequelize');
 const connection = require('../connection/database');
+const usuario = require('../model/usuarioModel');
 
 const ativo = connection.define('ativo', {
-    /*usuarioID:{
-        type: sequelize.INTEGER,
-        references: 'usuario',
-        referencesKy: 'id'
-    },*/
     tipoativo:{
         type: sequelize.STRING,
         allowNull: false
@@ -32,6 +28,10 @@ const ativo = connection.define('ativo', {
         allowNull: true
     }
 })
+
+usuario.hasMany(ativo, {
+    foreignKey: 'usuarioID'
+});
 
 ativo.sync({force: false}).then(() => {
     console.log("Tabela de ativo criada!");
