@@ -1,4 +1,4 @@
-# API Investment Manager
+4# API Investment Manager
 Api do aplicativo do Investment Manager
 
 Passo a passo instalação de dependencias
@@ -12,4 +12,6 @@ Passo a passo instalação de dependencias
 * npm install mysql2 --save
 * npm install dotenv
 
-No arquivo 'package.json' adicionar dentro do 'scripts', "start": "nodemon app.js"
+No arquivo 'package.json' adicionar dentro do 'scripts', "start": "nodemon app.js"\
+
+https://github.com/lohls/Api-Correios/tree/master
