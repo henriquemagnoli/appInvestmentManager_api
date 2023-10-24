@@ -26,6 +26,11 @@ const ativo = connection.define('ativo', {
     outroscustos:{
         type: sequelize.DOUBLE,
         allowNull: true
+    },
+    tipo:{
+        type: sequelize.ENUM,
+        values: ['C','V'],
+        allowNull: false
     }
 })
 

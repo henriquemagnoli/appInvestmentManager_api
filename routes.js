@@ -6,6 +6,7 @@ const routes = express.Router();
 const controllerLogin = require('./controller/loginController');
 const controllerUsuario = require('./controller/usuarioController');
 const controllerAtivo = require('./controller/ativoController');
+const controllerHistorico = require('./controller/historicoController');
 
 // Endpoints
 // Login
@@ -22,5 +23,8 @@ routes.get('/ativos', controllerAtivo.listarAtivos)        // Lista Ativos
 routes.post('/ativos', controllerAtivo.criarAtivo)         // Cria Ativos
 routes.delete('/ativos/:id', controllerAtivo.excluirAtivo) // Deleta Ativos
 routes.put('/ativos/:id', controllerAtivo.alterarAtivo)    // Altera Ativos
+
+// Histórico
+routes.get('/historico', controllerHistorico.listarHistorico) // Lista Histórico
 
 module.exports = routes;
