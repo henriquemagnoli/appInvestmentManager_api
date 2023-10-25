@@ -30,11 +30,7 @@ const criarHistorico = async (req, res) => {
         outroscustos: req.body.outroscustos,
         tipo: req.body.tipo,
         usuarioID: req.body.usuarioID
-    }).then((data) => {
-        res.status(200).send("Histórico Criado");
-    }).catch(() => {
-        res.status(500).send('Internal server error');
-    })
+    }).then()
 }
 
 module.exports = {listarHistorico, criarHistorico};

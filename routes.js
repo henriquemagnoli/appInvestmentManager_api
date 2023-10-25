@@ -20,6 +20,7 @@ routes.put('/usuarios/:id', controllerUsuario.alterarUsuario)    // Altera Usuar
 
 // Ações
 routes.get('/ativos', controllerAtivo.listarAtivos)        // Lista Ativos
+routes.get('/ativos/:codigoativo', controllerAtivo.listarAtivosNome) // Lista atraves do filtro o ativo
 routes.post('/ativos', controllerAtivo.criarAtivo)         // Cria Ativos
 routes.delete('/ativos/:id', controllerAtivo.excluirAtivo) // Deleta Ativos
 routes.put('/ativos/:id', controllerAtivo.alterarAtivo)    // Altera Ativos

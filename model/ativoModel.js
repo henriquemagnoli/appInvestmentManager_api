@@ -10,11 +10,7 @@ const ativo = connection.define('ativo', {
     codigoativo:{
         type: sequelize.STRING,
         allowNull: false
-    },
-    datacompra:{
-        type: sequelize.DATE,
-        allowNull: false
-    },
+    },   
     quantidade:{
         type: sequelize.INTEGER,
         allowNull: false
@@ -26,11 +22,6 @@ const ativo = connection.define('ativo', {
     outroscustos:{
         type: sequelize.DOUBLE,
         allowNull: true
-    },
-    tipo:{
-        type: sequelize.ENUM,
-        values: ['C','V'],
-        allowNull: false
     }
 })
 

@@ -17,7 +17,7 @@ const historico = connection.define('historico', {
     },
     datavenda:{
         type: sequelize.DATE,
-        allowNull: false
+        allowNull: true
     },
     quantidade:{
         type: sequelize.INTEGER,
