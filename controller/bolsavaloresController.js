@@ -9,11 +9,20 @@ const listarAcoes = async (req, res) =>
 
 const listarAcaoNome = async (req, res) => 
 {
-    const response = await fetch('http://brapi.dev/api/quote/' + req.params.ativo +'?token=' + process.env.TOKEN_API);
+    const response = await fetch('http://brapi.dev/api/quote/' + req.params.acao +'?token=' + process.env.TOKEN_API);
 
     const data = await response.json();
 
     res.json(data);
 }
 
-module.exports = {listarAcaoNome, listarAcoes}
+const listarAtivoNome = async () => 
+{
+    const response = await fetch('http://brapi.dev/api/quote/list?search=' + req.params.ativo + '&token=' + process.env.TOKEN_API);
+
+    const data = await response.json();
+
+    res.json(data);
+}
+
+module.exports = {listarAcaoNome, listarAcoes, listarAtivoNome}

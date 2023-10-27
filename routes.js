@@ -30,7 +30,8 @@ routes.put('/ativos/:id', controllerAtivo.alterarAtivo)    // Altera Ativos
 routes.get('/historico', controllerHistorico.listarHistorico) // Lista Histórico
 
 // B3
-routes.get('/bolsavalores/:ativo', controllerBolsaValores.listarAcaoNome)
+routes.get('/bolsavalores/:acao', controllerBolsaValores.listarAcaoNome)
 routes.get('/bolsavalores', controllerBolsaValores.listarAcoes)
+routes.get('/bolsavalores/:ativo', controllerBolsaValores.listarAtivoNome)
 
 module.exports = routes;
