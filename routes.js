@@ -7,10 +7,11 @@ const controllerLogin = require('./controller/loginController');
 const controllerUsuario = require('./controller/usuarioController');
 const controllerAtivo = require('./controller/ativoController');
 const controllerHistorico = require('./controller/historicoController');
+const controllerBolsaValores = require('./controller/bolsavaloresController');
 
 // Endpoints
 // Login
-routes.get('/login', controllerLogin.validarLogin) // Valida o login
+routes.get('/login/:email', controllerLogin.validarLogin) // Valida o login
 
 // Usuarios
 routes.get('/usuarios', controllerUsuario.listarUsuario)         // Lista Usuarios
@@ -27,5 +28,9 @@ routes.put('/ativos/:id', controllerAtivo.alterarAtivo)    // Altera Ativos
 
 // Histórico
 routes.get('/historico', controllerHistorico.listarHistorico) // Lista Histórico
+
+// B3
+routes.get('/bolsavalores/:ativo', controllerBolsaValores.listarAcaoNome)
+routes.get('/bolsavalores', controllerBolsaValores.listarAcoes)
 
 module.exports = routes;
