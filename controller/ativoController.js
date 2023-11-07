@@ -85,6 +85,10 @@ const alterarAtivo = async (req, res) =>
         if(req.body.tipo == 'V')
         {
             quantidade = getData.quantidade - req.body.quantidade;
+
+            if(quantidade <= 0)
+                res.json("Ativo não pode ser vendido, pois possuí quantidade igual ou menor que zero.");
+         
             preco = getData.preco - req.body.preco;
         }
         else if(req.body.tipo == 'C')

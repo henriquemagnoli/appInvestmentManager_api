@@ -32,6 +32,5 @@ routes.get('/historico', controllerHistorico.listarHistorico) // Lista Históric
 // B3
 routes.get('/bolsavalores/:acao', controllerBolsaValores.listarAcaoNome)
 routes.get('/bolsavalores', controllerBolsaValores.listarAcoes)
-routes.get('/bolsavalores/:ativo', controllerBolsaValores.listarAtivoNome)
 
 module.exports = routes;
