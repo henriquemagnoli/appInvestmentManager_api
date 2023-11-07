@@ -11,7 +11,7 @@ const controllerBolsaValores = require('./controller/bolsavaloresController');
 
 // Endpoints
 // Login
-routes.get('/login/:email', controllerLogin.validarLogin) // Valida o login
+routes.post('/login', controllerLogin.validarLogin) // Valida o login
 
 // Usuarios
 routes.get('/usuarios', controllerUsuario.listarUsuario)         // Lista Usuarios

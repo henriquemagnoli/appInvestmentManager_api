@@ -6,9 +6,10 @@ const listarUsuario = async (req, res) => {
         if(usuarios !== null)
             res.json(usuarios)
         else
-            res.status(200).send('Não existem usuarios');
+            res.status(200).json({"message":"Não existem usuarios."});
     }).catch(() => {
-        res.status(500).send('Internal server error');
+        res.status(500).json({"message":"Internal server error.",
+                              "type": "Empty"});
     })
 }
 
@@ -17,7 +18,8 @@ const criarUsuario = async (req, res) => {
     // Se meu req.body for vazio, exibo status 400 pois não possui nenhum dado no body
     if(Object.keys(req.body).length === 0)
     {
-        res.status(400).send('Corpo da requisição vazio');
+        res.status(400).json({"message":"Corpo da requisição vazio.",
+                              "type": "Empty"});
         return;
     }
  
@@ -29,9 +31,11 @@ const criarUsuario = async (req, res) => {
         senha: req.body.senha,
         datanascimento: req.body.datanascimento
     }).then((data) => {
-        res.status(200).send("Usuario Criado");
+        res.status(200).json({"message":"Usuário criado.",
+                              "type": "Received"});
     }).catch(() => {
-        res.status(500).send('Internal server error');
+        res.status(500).json({"message":"Internal server error.",
+                              "type": "Empty"});
     })
 }
 
@@ -43,14 +47,17 @@ const excluirUsuario = async (req, res) => {
     if(verifyID)
     {
         await usuarioModel.destroy({where:{id: req.params.id}}).then(() => {
-            res.json("Usuario Excluido")     
+            res.status(200).json({"message":"Usuário excluido.",
+                                  "type": "Received"}); 
         }).catch(() => {
-            res.status(500).send("Internal server error");
+            res.status(500).json({"message":"Internal server error.",
+                                  "type": "Empty"});
         })
     }
     else
     {
-        res.status(200).send("Usuário não encontrado");
+        res.status(200).json({"message":"Usuário não encontrado.",
+                              "type": "Empty"});
     }
 }
 
@@ -62,22 +69,26 @@ const alterarUsuario = async (req, res) => {
     // Se meu req.body for vazio, exibo status 400 pois não possui nenhum dado no body
     if(Object.keys(req.body).length === 0)
     {
-        res.status(400).send('Corpo da requisição vazio');
+        res.status(400).json({"message": "Corpo da requisição não pode ser vazio.",
+                              "type": "Empty"});
         return;
     }
 
     if(verifyID)
     {
         await usuarioModel.update(req.body, {where:{id: req.params.id}}).then(() => {
-            res.status(200).send('Usuario foi Atualizado')
+            res.status(200).json({"message":"Usuário foi alterado.",
+                                  "type": "Received"});
 
         }).catch(() =>{
-            res.status(500).send('Internal server error');
+            res.status(500).json({"message":"Internal server error.",
+                                  "type": "Empty"});
         })
     }
     else
     {
-        res.status(200).send('Usuário não encontrado')
+        res.status(200).json({"message":"Usuário não encontrado.",
+                              "type": "Empty"});
     }
 }
 

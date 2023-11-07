@@ -6,9 +6,11 @@ const listarHistorico = async (req, res) => {
         if(historico !== null)
             res.json(historico)
         else
-            res.status(200).send('Não existe histórico.');
+            res.status(200).json({"message":"Não existe histórico.",
+                                  "type": "Empty"});
     }).catch(() => {
-        res.status(500).send('Internal server error.')
+        res.status(500).json({"message":"Internal server error.",
+                              "type": "Empty"});
     })
 }
 
@@ -16,7 +18,8 @@ const criarHistorico = async (req, res) => {
 
     if(Object.keys(req.body).length === 0)
     {
-        res.status(400).send('Corpo da requisição vazio');
+        res.status(400).json({"message":"Corpo da requisição vazio.",
+                              "type": "Empty"});
         return;
     }
 

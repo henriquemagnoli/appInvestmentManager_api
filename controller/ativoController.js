@@ -7,9 +7,11 @@ const listarAtivos = async (req, res) =>
         if(ativos !== null)
             res.json(ativos);
         else
-            res.status(200).send('Não existem ativos.');
+            res.status(200).json({"message": "Não existem ativos.",
+                                  "type": "Empty"});
     }).catch(() => {
-        res.status(500).send('Internal server error');
+        res.status(500).json({"message": "Internal Server Error.",
+                              "type": "Empty"})
     })
 }
 
@@ -19,9 +21,11 @@ const listarAtivosNome = async (req, res) =>
         if(ativos !== null)
             res.json(ativos)
         else
-            res.status(200).send('Não existe ativo com esse nome.');
+            res.status(200).json({"message": "Não existe ativo com esse nome.",
+                                  "type": "Empty"});
     }).catch(() => {
-        res.status(500).send('Internal server error');
+        res.status(500).json({"message": "Internal Server Error.",
+                              "type": "Empty"})
     })
 }
 
@@ -29,7 +33,8 @@ const criarAtivo = async (req, res) =>
 { 
     if(Object.keys(req.body).length === 0)
     {
-        res.status(400).send('Corpo da requisição vazio');
+        res.status(400).json({"message": "Corpo da requisição não pode ser vazio.",
+                              "type": "Empty"});
         return;
     }
 
@@ -43,9 +48,11 @@ const criarAtivo = async (req, res) =>
     }).then((data) => {      
         historicoController.criarHistorico(req, res)
 
-        res.status(200).send("Ativo Criado");
+        res.status(200).json({"message": "Ativo Criado.",
+                              "type": "Received"})
     }).catch(() => {
-        res.status(500).send('Internal server error');
+        res.status(500).json({"message": "Internal Server Error.",
+                              "type": "Empty"})
     })    
 }
 
@@ -57,14 +64,17 @@ const excluirAtivo = async (req, res) =>
     if(verifyID)
     {
         ativoModel.destroy({where:{id: req.params.id}}).then(() => {
-            res.json("Ativo Excluido")
+            res.status(200).json({"message":"Ativo Excluido.",
+                                  "type": "Received"})
         }).catch(() => {
-            res.status(500).send("internal server error")
+            res.status(500).json({"message":"Internal Server Error.",
+                                  "type": "Empty"})
         })
     }
     else
     {
-        res.status(200).send("Ativo não encontrado");
+        res.status(200).json({"message":"Ativo não foi encontrado.",
+                              "type": "Empty"})
     }
 }
 
@@ -87,7 +97,8 @@ const alterarAtivo = async (req, res) =>
             quantidade = getData.quantidade - req.body.quantidade;
 
             if(quantidade <= 0)
-                res.json("Ativo não pode ser vendido, pois possuí quantidade igual ou menor que zero.");
+                res.status(200).json({"message":"Ativo não pode ser vendido, pois possuí quantidade igual ou menor que zero.",
+                                      "type": "Empty"});
          
             preco = getData.preco - req.body.preco;
         }
@@ -107,14 +118,17 @@ const alterarAtivo = async (req, res) =>
 
             historicoController.criarHistorico(req, res);
 
-            res.status(200).send('Ativo foi alterado.')
+            res.status(200).json({"message":"Ativo foi alterado.",
+                                  "type": "Received"})
         }).catch(() => {
-            res.status(500).send("internal server error")
+            res.status(500).json({"message":"Internal Server Error.",
+                                  "type": "Empty"})
         })
     }
     else
     {
-        res.status(200).send("Ativo não encontrado");
+        res.status(200).json({"message":"Ativo não foi encontrado.",
+                              "type": "Empty"})
     } 
 }
 
