@@ -12,6 +12,8 @@ const listarAtivos = async (req, res) =>
     }).catch(() => {
         res.status(500).json({"message": "Internal Server Error.",
                               "type": "Empty"})
+
+        return;
     })
 }
 
@@ -26,6 +28,8 @@ const listarAtivosNome = async (req, res) =>
     }).catch(() => {
         res.status(500).json({"message": "Internal Server Error.",
                               "type": "Empty"})
+
+        return;
     })
 }
 
@@ -53,6 +57,8 @@ const criarAtivo = async (req, res) =>
     }).catch(() => {
         res.status(500).json({"message": "Internal Server Error.",
                               "type": "Empty"})
+
+        return;
     })    
 }
 
@@ -69,12 +75,16 @@ const excluirAtivo = async (req, res) =>
         }).catch(() => {
             res.status(500).json({"message":"Internal Server Error.",
                                   "type": "Empty"})
+
+            return;
         })
     }
     else
     {
         res.status(200).json({"message":"Ativo não foi encontrado.",
                               "type": "Empty"})
+
+        return;
     }
 }
 
@@ -97,8 +107,13 @@ const alterarAtivo = async (req, res) =>
             quantidade = getData.quantidade - req.body.quantidade;
 
             if(quantidade <= 0)
+            {
                 res.status(200).json({"message":"Ativo não pode ser vendido, pois possuí quantidade igual ou menor que zero.",
                                       "type": "Empty"});
+
+                return;
+            }
+               
          
             preco = getData.preco - req.body.preco;
         }
@@ -123,12 +138,16 @@ const alterarAtivo = async (req, res) =>
         }).catch(() => {
             res.status(500).json({"message":"Internal Server Error.",
                                   "type": "Empty"})
+
+            return;
         })
     }
     else
     {
         res.status(200).json({"message":"Ativo não foi encontrado.",
                               "type": "Empty"})
+
+        return;
     } 
 }
 

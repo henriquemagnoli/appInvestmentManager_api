@@ -11,6 +11,8 @@ const listarHistorico = async (req, res) => {
     }).catch(() => {
         res.status(500).json({"message":"Internal server error.",
                               "type": "Empty"});
+
+        return;
     })
 }
 
