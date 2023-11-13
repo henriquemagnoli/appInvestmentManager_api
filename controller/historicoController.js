@@ -1,19 +1,66 @@
 const historicoModel = require('../model/historicoModel');
+const usuarioModel = require('../model/usuarioModel');
+const { Op } = require('sequelize');
 
 const listarHistorico = async (req, res) => {
 
-    await historicoModel.findAll({raw: true, order:[['id','DESC']]}).then((historico) => {
-        if(historico !== null)
-            res.json(historico)
-        else
-            res.status(200).json({"message":"Não existe histórico.",
+    // Verifica se o ID do usuario existe
+    const verifyID = await usuarioModel.count({where:{id:req.params.idUsuario}})
+    
+    if(verifyID)
+    {
+        await historicoModel.findAll({where:{usuarioID:req.params.idUsuario}},{raw: true, order:[['id','DESC']]}).then((historico) => {
+            if(historico !== null)
+                res.status(200).json({"data": historico,
+                                      "type": "received"})
+            else
+                res.status(200).json({"message":"Não existe histórico.",
+                                      "type": "Empty"});
+        }).catch(() => {
+            res.status(500).json({"message":"Internal server error.",
                                   "type": "Empty"});
-    }).catch(() => {
-        res.status(500).json({"message":"Internal server error.",
-                              "type": "Empty"});
+    
+            return;
+        })
+    }
+    else
+    {
+        res.status(200).json({"message":"Usuário não possui movimentação.",
+                              "type": "Empty"})
 
         return;
-    })
+    }
+}
+
+const listarHistoricoNome = async (req, res) => 
+{
+    // Verifica se existe ID do usuario
+    const verifyID = await usuarioModel.count({where:{id:req.params.idUsuario}});
+
+    if(verifyID)
+    {
+        await historicoModel.findAll({where: {codigoativo : req.params.codigoativo,
+                                      [Op.and]: {usuarioID: req.params.idUsuario}}}).then((historico) => {
+            if(historico !== null)
+                res.status(200).json({"data": historico,
+                                      "type": "Received"})
+            else
+                res.status(200).json({"message": "Não existe ativo com esse nome.",
+                                      "type": "Empty"});                         
+        }).catch((e) => {
+            res.status(500).json({"message": "Internal Server Error." + e,
+                                  "type": "Empty"})
+    
+            return;
+        })
+    }
+    else
+    {
+        res.status(200).json({"message":"Usuário não possui movimentação.",
+                              "type": "Empty"})
+
+        return;
+    }
 }
 
 const criarHistorico = async (req, res) => {
@@ -38,4 +85,4 @@ const criarHistorico = async (req, res) => {
     }).then()
 }
 
-module.exports = {listarHistorico, criarHistorico};
+module.exports = {listarHistorico, criarHistorico, listarHistoricoNome};
