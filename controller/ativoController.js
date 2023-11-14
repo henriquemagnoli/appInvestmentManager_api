@@ -12,7 +12,7 @@ const listarAtivos = async (req, res) =>
     {
         await ativoModel.findAll({where:{usuarioID:req.params.idUsuario}},{raw: true, order:[['id','DESC']]}).then((ativos) => {
             if(ativos !== null)
-                res.json(ativos);
+                res.status(200).json(ativos);
             else
                 res.status(200).json({"message": "Não existem ativos.",
                                       "type": "Empty"});
@@ -42,8 +42,7 @@ const listarAtivosNome = async (req, res) =>
         await ativoModel.findAll({where: {codigoativo : req.params.codigoativo,
                                  [Op.and]: {usuarioID: req.params.idUsuario}}}).then((ativos) => {
             if(ativos !== null)
-                res.status(200).json({"data": ativos,
-                                      "type": "Received"})
+                res.status(200).json(ativos);
             else
                 res.status(200).json({"message": "Não existe ativo com esse nome.",
                                       "type": "Empty"});

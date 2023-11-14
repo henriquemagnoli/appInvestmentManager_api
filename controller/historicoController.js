@@ -11,8 +11,7 @@ const listarHistorico = async (req, res) => {
     {
         await historicoModel.findAll({where:{usuarioID:req.params.idUsuario}},{raw: true, order:[['id','DESC']]}).then((historico) => {
             if(historico !== null)
-                res.status(200).json({"data": historico,
-                                      "type": "received"})
+                res.status(200).json(historico)
             else
                 res.status(200).json({"message":"Não existe histórico.",
                                       "type": "Empty"});
@@ -42,8 +41,7 @@ const listarHistoricoNome = async (req, res) =>
         await historicoModel.findAll({where: {codigoativo : req.params.codigoativo,
                                       [Op.and]: {usuarioID: req.params.idUsuario}}}).then((historico) => {
             if(historico !== null)
-                res.status(200).json({"data": historico,
-                                      "type": "Received"})
+                res.status(200).json(historico);
             else
                 res.status(200).json({"message": "Não existe ativo com esse nome.",
                                       "type": "Empty"});                         
