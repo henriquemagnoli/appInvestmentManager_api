@@ -36,11 +36,22 @@ const listarAtivosNome = async (req, res) =>
 {
     // Verifica se existe ID do usuario
     const verifyID = await usuarioModel.count({where:{id:req.params.idUsuario}});
+    let dbField;
 
     if(verifyID)
     {
-        await ativoModel.findAll({where: {codigoativo : req.params.codigoativo,
-                                 [Op.and]: {usuarioID: req.params.idUsuario}}}).then((ativos) => {
+        if(Number(req.params.codigoativo))
+        {
+            dbField = {where: {id : req.params.codigoativo,
+                      [Op.and]: {usuarioID: req.params.idUsuario}}};
+        }
+        else
+        {
+            dbField = {where: {codigoativo : req.params.codigoativo,
+                      [Op.and]: {usuarioID: req.params.idUsuario}}};
+        }
+
+        await ativoModel.findAll(dbField).then((ativos) => {
             if(ativos !== null)
                 res.status(200).json(ativos);
             else
