@@ -152,16 +152,17 @@ const alterarAtivo = async (req, res) =>
         if(verifyID)
         {
             const getData = await ativoModel.findOne({where: {id : req.params.id}, attributes: ['quantidade','preco']});
-
+            
+            let preco
             let quantidade;
-            let quantidadeAntiga = req.body.quantidade;
-            let precoAntigo = req.body.preco;
+            let quantidadeAntiga = getData.quantidade;
+            let precoAntigo = getData.preco;
     
             // Casa o tipo da compra do ativo for 'V'(Venda), salvo a quantidade antiga e 
             // o preco antigo e por fim altero a quantidade e preco com oq retornou do banco
             if(req.body.tipo == 'V')
             {
-                quantidade = getData.quantidade - req.body.quantidade;
+                quantidade = quantidadeAntiga - parseInt(req.body.quantidade);
     
                 if(quantidade <= 0)
                 {
@@ -171,26 +172,22 @@ const alterarAtivo = async (req, res) =>
                     return;
                 }
                    
-             
-                preco = getData.preco - req.body.preco;
+                preco = precoAntigo - parseFloat(req.body.preco);
             }
             else if(req.body.tipo == 'C')
             {
-                quantidade = getData.quantidade + req.body.quantidade;
-                preco = getData.preco + req.body.preco;
+                quantidade = quantidadeAntiga + parseInt(req.body.quantidade);
+                preco = precoAntigo + parseFloat(req.body.preco);
             }   
             
             req.body.quantidade = quantidade;
             req.body.preco = preco;
 
-            req.body.quantidade = parseInt(req.body.quantidade);
-            req.body.preco = parseFloat(req.body.preco);
-
             if(req.body.outroscustos != null)
                 req.body.outroscustos = parseFloat(req.body.outroscustos);
             
             req.body.usuarioID = parseInt(req.body.usuarioID);
-    
+
             ativoModel.update(req.body, {where:{id: req.params.id}}).then(() => {
     
                 req.body.quantidade = quantidadeAntiga;
