@@ -4,7 +4,7 @@ const listarAcoes = async (req, res) =>
 
     const data = await response.json();
 
-    res.json(data);
+    res.status(200).json([data]);
 }
 
 const listarAcaoNome = async (req, res) => 
@@ -13,7 +13,7 @@ const listarAcaoNome = async (req, res) =>
 
     const data = await response.json();
 
-    res.json(data);
+    res.status(200).json([data]);
 }
 
 module.exports = {listarAcaoNome, listarAcoes}
