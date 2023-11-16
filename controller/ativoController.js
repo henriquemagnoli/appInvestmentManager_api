@@ -1,7 +1,7 @@
 const ativoModel = require('../model/ativoModel');
 const historicoController = require('./historicoController');
 const usuarioModel = require('../model/usuarioModel');
-const { Op } = require("sequelize");
+const { Op, DOUBLE } = require("sequelize");
 
 const listarAtivos = async (req, res) => 
 {
@@ -182,6 +182,14 @@ const alterarAtivo = async (req, res) =>
             
             req.body.quantidade = quantidade;
             req.body.preco = preco;
+
+            req.body.quantidade = parseInt(req.body.quantidade);
+            req.body.preco = parseFloat(req.body.preco);
+
+            if(req.body.outroscustos != null)
+                req.body.outroscustos = parseFloat(req.body.outroscustos);
+            
+            req.body.usuarioID = parseInt(req.body.usuarioID);
     
             ativoModel.update(req.body, {where:{id: req.params.id}}).then(() => {
     
@@ -192,8 +200,8 @@ const alterarAtivo = async (req, res) =>
     
                 res.status(200).json({"message":"Ativo foi alterado.",
                                       "type": "Received"})
-            }).catch(() => {
-                res.status(500).json({"message":"Internal Server Error.",
+            }).catch((e) => {
+                res.status(500).json({"message":"Internal Server Error." + e,
                                       "type": "Empty"})
     
                 return;
